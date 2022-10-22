@@ -1,0 +1,20 @@
+# Directories
+.vs/
+build
+
+# Binaries
+**/bin/
+!vendor/premake/
+bin-int/
+
+# Visual Studio files and folder
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+
+# Xcode files and folder
+**.xcworkspace
+**.xcodeproj
+

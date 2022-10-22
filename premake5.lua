@@ -1,5 +1,5 @@
 workspace "OpenCVEditorWS"
-    architecture "x86_64"
+    architecture "x64"
     startproject "OpenCVEditor"
     configurations
     {
@@ -35,24 +35,51 @@ project "OpenCVEditor"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
+    
     files { "src/**" }
-
+    
     includedirs
     {
         "src",
-        "vendor/Glad/include",
         "vendor/GLFW/include",
-        "vendor/imgui",
-        "vendor/imgui/backends"
+        "vendor/Glad/include",
+        "vendor/imgui"
     }
-   
-    links
+    
+    defines 
     {
-        "Glad",
-        "GLFW",
-        "ImGui"
+        "GLFW_INCLUDE_NONE"
     }
+
+    filter "system:macosx"
+        links
+        {
+            "GLFW",
+            "Glad",
+            "ImGui"
+            "OpenGL.framework",
+            "IOKit.framework",
+            "Cocoa.framework",
+        }
+
+    filter "system:linux"
+        links
+        {
+            "GLFW",
+            "Glad",
+            "ImGui"
+            "GL",
+        }
+    
+    filter "system:windows"
+        links
+        {
+            "GLFW",
+            "Glad",
+            "ImGui"
+            "opengl32.lib",
+        }
+
 
    	filter "configurations:Debug"
         defines "DEBUG"
