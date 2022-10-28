@@ -26,6 +26,7 @@ project "ImGui"
 		staticruntime "On"
 	
 	filter "system:macosx"
+		pic "On"
 		systemversion "latest"
 		cppdialect "C++17"
 		staticruntime "On"

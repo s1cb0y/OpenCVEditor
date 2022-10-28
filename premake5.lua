@@ -1,5 +1,5 @@
 workspace "OpenCVEditorWS"
-    architecture "x64"
+    architecture "x86_64"
     startproject "OpenCVEditor"
     configurations
     {
@@ -7,12 +7,12 @@ workspace "OpenCVEditorWS"
         "Release",
         "Dist"
     }
-        
+
     flags
     {
         "MultiProcessorCompile"
     }
-    
+   
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"    
 
@@ -29,7 +29,7 @@ group "Dependencies"
 
 project "OpenCVEditor"
     location "build"
-    kind "WindowedApp"
+    kind "ConsoleApp"
     language "C++"
     cppdialect "C++17"
 
@@ -54,12 +54,12 @@ project "OpenCVEditor"
     filter "system:macosx"
         links
         {
-            "GLFW",
-            "Glad",
-            "ImGui"
             "OpenGL.framework",
             "IOKit.framework",
             "Cocoa.framework",
+            "GLFW",
+            "Glad",
+            "ImGui"
         }
 
     filter "system:linux"
@@ -67,8 +67,8 @@ project "OpenCVEditor"
         {
             "GLFW",
             "Glad",
-            "ImGui"
-            "GL",
+            "ImGui",
+            "GL"
         }
     
     filter "system:windows"
@@ -76,8 +76,8 @@ project "OpenCVEditor"
         {
             "GLFW",
             "Glad",
-            "ImGui"
-            "opengl32.lib",
+            "ImGui",
+            "opengl32.lib"
         }
 
 
