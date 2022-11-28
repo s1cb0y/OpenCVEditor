@@ -1,7 +1,11 @@
+#include "AppEngine/Core.h"
 #include "AppEngine/Application.h"
+
 #include <cassert>
 
 namespace AppEngine{
+
+#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
    Application* Application::s_instance = nullptr;
 
@@ -25,8 +29,22 @@ namespace AppEngine{
    }
 
    void Application::Run(){
-      while(m_isRunning){
-
+      
+      if (!m_IsMinimized){
+         while(m_IsRunning){
+            for (auto layer : m_LayerStack){
+               layer->OnUpdate();
+            }
+         }
       }
+   }
+
+   void Application::OnEvent(Event &event){
+      EventDispatcher dispatcher(event);
+      dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnClose));
+   }
+
+   bool Application::OnClose(WindowCloseEvent &event){
+      m_IsRunning = false;
    }
 }
