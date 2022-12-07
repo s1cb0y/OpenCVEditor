@@ -3,6 +3,7 @@
 #include "AppEngine/Layer/LayerStack.h"
 #include "AppEngine/Events/Event.h"
 #include "AppEngine/Events/ApplicationEvent.h"
+#include "AppEngine/Window.h"
 
 namespace AppEngine{
 
@@ -27,6 +28,7 @@ namespace AppEngine{
       LayerStack m_LayerStack;
       bool m_IsRunning = true;
       bool m_IsMinimized = false;
+      std::unique_ptr<Window> m_Window = nullptr;
    };
 
    Application* CreateApplication();

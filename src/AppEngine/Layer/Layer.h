@@ -7,7 +7,7 @@ namespace AppEngine{
 
    public:
       Layer(const std::string& name = "Layer");
-      virtual ~Layer() = 0;
+      virtual ~Layer() = default;
 
       virtual void OnAttach(){};
       virtual void OnDetach(){};

@@ -7,6 +7,8 @@ build
 !vendor/premake/
 bin-int/
 
+#makefiles
+Makefile
 # Visual Studio files and folder
 .vs/
 **.sln
@@ -18,6 +20,8 @@ bin-int/
 **.xcworkspace
 **.xcodeproj
 
+# VS Code files
+.vscode/
 #macOS files
 **.DS_Store
 

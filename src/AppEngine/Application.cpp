@@ -12,6 +12,7 @@ namespace AppEngine{
    Application::Application(){
       assert(("Application alreay exists!", !s_instance));
       s_instance = this;
+      m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
    }
 
    Application::~Application()
@@ -35,6 +36,7 @@ namespace AppEngine{
             for (auto layer : m_LayerStack){
                layer->OnUpdate();
             }
+            m_Window->OnUpdate();
          }
       }
    }
