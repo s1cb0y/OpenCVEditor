@@ -1,0 +1,2 @@
+# use clang for linux
+use following premake flag when building make project: --cc=clang
