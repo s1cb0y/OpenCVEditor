@@ -63,12 +63,14 @@ project "OpenCVEditor"
         }
 
     filter "system:linux"
+        linkoptions { "-ldl -lpthread" }
         links
         {
             "GLFW",
             "Glad",
             "ImGui",
-            "GL"
+            "GL",
+            "X11"
         }
     
     filter "system:windows"
