@@ -8,7 +8,7 @@ build
 bin-int/
 
 #makefiles
-Makefile
+**/Makefile
 # Visual Studio files and folder
 .vs/
 **.sln
