@@ -1,6 +1,6 @@
 #include "AppEngine/Core.h"
+#include "AppEngine/Log.h"
 #include "AppEngine/Application.h"
-
 #include <cassert>
 
 namespace AppEngine{

@@ -8,5 +8,7 @@
 #include <functional>
 #include <memory>
 
+#include "AppEngine/Log.h"
+
 #define BIT(x) (1 << x)
 

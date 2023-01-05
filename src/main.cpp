@@ -1,14 +1,18 @@
 
 
 #include "AppEngine/Application.h"
+#include "AppEngine/Core.h"
+#include "AppEngine/Log.h"
 
 extern AppEngine::Application* AppEngine::CreateApplication();
 
 int main(int, char**)
 {
-   std::cout << "Create application" << std::endl;
+   
+   AppEngine::Log::Init();
+   LOG_INFO("Create application");
    auto app = AppEngine::CreateApplication();
-   std::cout << "Start application" << std::endl;
+   LOG_INFO("Start application");
    app->Run();
 
    return 0;

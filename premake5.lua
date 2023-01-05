@@ -36,14 +36,19 @@ project "OpenCVEditor"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
     
-    files { "src/**" }
+    files 
+    { 
+      "src/**.h",
+      "src/**.cpp" 
+    }
     
     includedirs
     {
         "src",
         "vendor/GLFW/include",
         "vendor/Glad/include",
-        "vendor/imgui"
+        "vendor/imgui",
+        "vendor/spdlog/include"
     }
     
     defines 
