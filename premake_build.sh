@@ -1,2 +1,3 @@
 #! /bin/bash
-vendor/premake/premake5 gmake --cc=clang
+vendor/premake/linux/premake5 gmake --cc=clang
+
