@@ -26,6 +26,8 @@ namespace AppEngine{
 
       virtual void OnUpdate() = 0;
 
+	  virtual void* GetNativeWindow() const = 0;
+
       static Window* Create(const WindowProps& props);
    };
 

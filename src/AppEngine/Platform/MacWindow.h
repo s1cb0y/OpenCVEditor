@@ -12,8 +12,10 @@ namespace AppEngine{
 
       virtual void OnUpdate() override;
 
-      virtual unsigned int GetWidth() override {return m_Props.Width;};
-      virtual unsigned int GetHeigth() override {return m_Props.Height;};
+      virtual unsigned int GetWidth() override { return m_Props.Width;};
+      virtual unsigned int GetHeigth() override { return m_Props.Height;};
+
+      virtual void* GetNativeWindow() const override { return m_Window;}
 
    private:
       void Init();   
