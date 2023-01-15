@@ -52,6 +52,7 @@ project "GLFW"
 		pic "On"
 
 		systemversion "latest"
+		staticruntime "On"
 		
 		files
 		{
