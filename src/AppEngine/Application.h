@@ -24,8 +24,6 @@ namespace AppEngine{
       void OnEvent(Event &event);      
 
       void PushLayer(Layer* layer);
-      void PopLayer(Layer* layer);
-
       void PushOverlay(Layer* layer);
       
    private:

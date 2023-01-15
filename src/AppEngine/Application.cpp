@@ -32,11 +32,6 @@ namespace AppEngine{
 		layer->OnAttach();
 	}
    
-   void Application::PopLayer(Layer* layer){
-      layer->OnDetach();
-      m_LayerStack.PopLayer(layer);
-   }
-
    void Application::Run(){
       
       if (!m_IsMinimized){
