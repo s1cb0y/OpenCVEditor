@@ -79,6 +79,7 @@ project "OpenCVEditor"
         }
     
     filter "system:windows"
+        systemversion "latest"
         links
         {
             "GLFW",
