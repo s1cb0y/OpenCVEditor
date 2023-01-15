@@ -13,17 +13,12 @@ namespace AppEngine{
       fprintf(stderr, "Glfw Error %d: %s\n", error, description);
    }
 
-   ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer"){
-    
+   ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer"){}
 
-   }
-
-   ImGuiLayer::~ImGuiLayer(){
-
-   }
+   ImGuiLayer::~ImGuiLayer(){}
 
    void ImGuiLayer::Begin(){
-      // Start the Dear ImGui frame
+      // Start the ImGui frame
       ImGui_ImplOpenGL3_NewFrame();
       ImGui_ImplGlfw_NewFrame();
       ImGui::NewFrame();
@@ -50,7 +45,7 @@ namespace AppEngine{
       GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
       ImGui_ImplGlfw_InitForOpenGL(window, true);
       if (ImGui_ImplOpenGL3_Init("#version 410") == false)
-         LOG_ERROR("Could not intin opengl3");
+         LOG_ERROR("Could not init opengl3");
    }
 
    void ImGuiLayer::OnDetach(){

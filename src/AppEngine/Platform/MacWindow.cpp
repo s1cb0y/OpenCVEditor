@@ -30,10 +30,9 @@ namespace AppEngine{
          if (GLFW_TRUE == glfwInit()){
             s_GLFWInitialized = true;
          } else {
-            assert(("GLFW could not be initialized!", !s_GLFWInitialized));
+            APP_ASSERT("GLFW could not be initialized!", !s_GLFWInitialized);
          }
       }
-
       m_Window = glfwCreateWindow((int)m_Props.Width, (int)m_Props.Height, m_Props.Title.c_str(), nullptr, nullptr);
       glfwMakeContextCurrent(m_Window);
 		// Init glad

@@ -40,7 +40,7 @@ project "OpenCVEditor"
     { 
       "src/**.h",
       "src/**.cpp" 
-    }
+    } 
     
     includedirs
     {
@@ -88,17 +88,14 @@ project "OpenCVEditor"
         }
 
 
-   	filter "configurations:Debug"
-        defines "DEBUG"
+    filter "configurations:Debug"
+        defines "APP_DEBUG"
         runtime "Debug"
         symbols "on"    
 
     filter "configurations:Release"
-        defines "RELEASE"
+        defines "APP_RELEASE"
         runtime "Release"
         optimize "on"
 
-    filter "configurations:Dist"
-        defines "DIST"
-        runtime "Release"
-        optimize "on"
+    
