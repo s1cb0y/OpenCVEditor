@@ -23,5 +23,5 @@ bin-int/
 # VS Code files
 .vscode/
 #macOS files
-**./DS_Store
+**/.DS_Store
 
