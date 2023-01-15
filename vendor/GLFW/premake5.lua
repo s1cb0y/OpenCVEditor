@@ -73,12 +73,12 @@ project "GLFW"
 	filter "system:windows"
 	
 		systemversion "latest"
+		staticruntime "On"
 
 		files
 		{
 			"src/win32_init.c",
 			"src/win32_joystick.c",
-			"src/win32_module.c",
 			"src/win32_monitor.c",
 			"src/win32_time.c",
 			"src/win32_thread.c",
@@ -92,11 +92,6 @@ project "GLFW"
 		{ 
 			"_GLFW_WIN32",
 			"_CRT_SECURE_NO_WARNINGS"
-		}
-
-		links
-		{
-			"Dwmapi.lib"
 		}
 
 	filter "configurations:Debug"
