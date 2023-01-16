@@ -54,19 +54,7 @@ namespace AppEngine{
       Application& app = Application::Get();
       GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
       ImGui_ImplGlfw_InitForOpenGL(window, true);
-        // Decide GL+GLSL versions
-      #if defined(IMGUI_IMPL_OPENGL_ES2)
-         // GL ES 2.0 + GLSL 100
-         const char* glsl_version = "#version 100";
-      #elif defined(__APPLE__)
-         // GL 3.2 + GLSL 150
-         const char* glsl_version = "#version 150";
-      #else
-         // GL 3.0 + GLSL 130
-         const char* glsl_version = "#version 130";
-      #endif
-
-      if (ImGui_ImplOpenGL3_Init(glsl_version) == false)
+      if (ImGui_ImplOpenGL3_Init( "#version 410") == false)
          LOG_ERROR("Could not init opengl3");
    }
 
