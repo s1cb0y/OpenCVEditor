@@ -54,7 +54,9 @@ namespace AppEngine{
       Application& app = Application::Get();
       GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
       ImGui_ImplGlfw_InitForOpenGL(window, true);
-      #ifdef APP_PLATFORM_LINUX
+      #if defined(APP_PLATFORM_LINUX)
+         const char* glVersion = "#version 130";
+      #elif defined(APP_PLATFORM_MACOS)
          const char* glVersion = "#version 130";
       #else
          const char* glVersion = "#version 410";
