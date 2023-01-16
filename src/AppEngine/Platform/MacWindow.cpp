@@ -1,3 +1,4 @@
+#include "AppEngine/Core.h"
 #include "AppEngine/Platform/MacWindow.h"
 #include "glad/glad.h"
 
@@ -37,6 +38,11 @@ namespace AppEngine{
       glfwMakeContextCurrent(m_Window);
 		// Init glad
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+      std::cout << ("OpenGL Info:");
+		std::cout << ("  Vendor: {0}", glGetString(GL_VENDOR));
+		std::cout << ("  Renderer: {0}", glGetString(GL_RENDERER));
+		std::cout << ("  Version: {0}", glGetString(GL_VERSION));
    }
 
    void MacWindow::OnUpdate(){
