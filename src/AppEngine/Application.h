@@ -21,7 +21,7 @@ namespace AppEngine{
       void Close();
       bool OnWindowClose(WindowCloseEvent& e);
 
-      void OnEvent(Event &event);      
+      void OnEvent(Event &event);
 
       void PushLayer(Layer* layer);
       void PushOverlay(Layer* layer);

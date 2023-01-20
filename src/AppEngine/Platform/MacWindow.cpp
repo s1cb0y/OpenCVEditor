@@ -1,25 +1,26 @@
 #include "AppEngine/Core.h"
 #include "AppEngine/Platform/MacWindow.h"
 #include "glad/glad.h"
+#include "AppEngine/Events/ApplicationEvent.h"
 
 namespace AppEngine{
    
    static bool s_GLFWInitialized = false;
    
    static void GLFWErrorCallback(int error, const char* description)
-	{
-		LOG_ERROR("GLFW Error ({0}): {1}", error, description);
-	}
+   {
+	   LOG_ERROR("GLFW Error ({0}): {1}", error, description);
+   }
 
    Window* Window::Create(const WindowProps& props){
       return new MacWindow(props);
    }
 
    MacWindow::MacWindow(const WindowProps& props) 
-   : m_Props(props)
-	{
-		Init();
-	}
+   : m_WindowData(props)
+   {
+	   Init();
+   }
 
 	MacWindow::~MacWindow()
 	{
@@ -43,15 +44,25 @@ namespace AppEngine{
          glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
       #endif
 
-      m_Window = glfwCreateWindow((int)m_Props.Width, (int)m_Props.Height, m_Props.Title.c_str(), nullptr, nullptr);
+      m_Window = glfwCreateWindow((int)m_WindowData.Width, (int)m_WindowData.Height, m_WindowData.Title.c_str(), nullptr, nullptr);
       glfwMakeContextCurrent(m_Window);
-		// Init glad
-      int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)
-		APP_ASSERT(0 != status, "Failed to load glad");
+      
+      // Init glad
+      int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+      APP_ASSERT(0 != status, "Failed to load glad");
       std::cout << ("OpenGL Info:");
-		std::cout << ("  Vendor: {0}", glGetString(GL_VENDOR));
-		std::cout << ("  Renderer: {0}", glGetString(GL_RENDERER));
-		std::cout << ("  Version: {0}", glGetString(GL_VERSION));
+      std::cout << ("  Vendor: {0}", glGetString(GL_VENDOR));
+      std::cout << ("  Renderer: {0}", glGetString(GL_RENDERER));
+      std::cout << ("  Version: {0}", glGetString(GL_VERSION));
+      
+      // Set user pointer
+      glfwSetWindowUserPointer(m_Window, &m_WindowData);
+      // Set glfw callbacks
+      glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window){
+         WindowData* data = (WindowData*) glfwGetWindowUserPointer(window);
+         WindowCloseEvent e;
+         data->fn(e);
+      });
    }
 
    void MacWindow::OnUpdate(){

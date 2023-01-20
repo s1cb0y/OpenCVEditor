@@ -13,6 +13,7 @@ namespace AppEngine{
       assert(("Application alreay exists!", !s_instance));
       s_instance = this;
       m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
+      m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
       m_ImGuiLayer = new ImGuiLayer();
       PushOverlay(m_ImGuiLayer);
    }
