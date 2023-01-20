@@ -2,6 +2,7 @@
 #include "AppEngine/Log.h"
 #include "AppEngine/Application.h"
 #include <cassert>
+#include "glad/glad.h"// TODO delete if glViewPort is abstracted
 
 namespace AppEngine{
 
@@ -54,6 +55,7 @@ namespace AppEngine{
    void Application::OnEvent(Event &event){
       EventDispatcher dispatcher(event);
       dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+      dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
       for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it){
          if (event.Handled){
@@ -68,6 +70,20 @@ namespace AppEngine{
 		m_IsRunning = false;
 		return true;
 	}
+
+   bool Application::OnWindowResize(WindowResizeEvent& e)
+   {
+      if (e.GetWidth() == 0 && e.GetHeight() == 0) {
+         m_IsMinimized = true;
+      }
+      else {
+         glViewport(0, 0, e.GetWidth(), e.GetHeight());
+         m_IsMinimized = false;
+      }
+      
+      return false;
+   }
+
 
    void Application::Close(){
       m_IsRunning = false;

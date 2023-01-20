@@ -20,6 +20,7 @@ namespace AppEngine{
       void Run();
       void Close();
       bool OnWindowClose(WindowCloseEvent& e);
+      bool OnWindowResize(WindowResizeEvent& e);
 
       void OnEvent(Event &event);
 

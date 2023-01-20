@@ -57,10 +57,19 @@ namespace AppEngine{
       
       // Set user pointer
       glfwSetWindowUserPointer(m_Window, &m_WindowData);
-      // Set glfw callbacks
+
+      // ------- Set glfw callbacks ------------      
       glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window){
          WindowData* data = (WindowData*) glfwGetWindowUserPointer(window);
          WindowCloseEvent e;
+         data->fn(e);
+      });
+      
+      glfwSetWindowSizeCallback(m_Window, [](GLFWwindow *window, int width, int height) {
+         WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+         data->Height = height;
+         data->Width = width;
+         WindowResizeEvent e(width, height);
          data->fn(e);
       });
    }
