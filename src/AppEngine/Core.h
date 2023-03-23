@@ -7,6 +7,7 @@
 #include <cassert>
 #include <functional>
 #include <memory>
+#include <sstream>
 
 #include "AppEngine/Log.h"
 #include "AppEngine/PlatformDetection.h"

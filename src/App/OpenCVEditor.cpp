@@ -1,7 +1,10 @@
+#include "AppEngine/Core.h"
 #include "AppEngine/Application.h"
 #include "AppEngine/Layer/Layer.h"
 #include "imgui.h"
 #include "App/UI/UIToolsWidget.h"
+#include "AppEngine/Log.h"
+
 //#include <opencv2/opencv.hpp>
 
 class MainLayer : public AppEngine::Layer {
@@ -22,6 +25,7 @@ private:
       if (!ImGui::Begin("OpenCV Editor", &main_window_active, ImGuiWindowFlags_MenuBar))
       {
          // Early out if the window is collapsed, as an optimization.
+         LOG_ERROR("Error in Imgui layer, could not begin main window!");
          ImGui::End();
          return;
       }
@@ -40,7 +44,7 @@ private:
       }
       ImGui::Text("Hello, welcome to OpenCV Editor");
       ImGui::Text("=================================");
-      ImGui::Text("Please start by opening a new image file");
+      ImGui::Text("Please start by opening a new image file to process (File -> Open");
       
       uiTools->Render();
       
@@ -54,6 +58,12 @@ private:
          show_open_dialog = false;
       ImGui::End();
    }
+
+   virtual void OnEvent(AppEngine::Event& event) override {
+      std::stringstream ss;
+      ss << "Event : " << event.GetName();
+      LOG_INFO(ss.str());
+   };
 
 };
 

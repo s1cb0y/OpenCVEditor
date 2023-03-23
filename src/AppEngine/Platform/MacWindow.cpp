@@ -2,6 +2,8 @@
 #include "AppEngine/Platform/MacWindow.h"
 #include "glad/glad.h"
 #include "AppEngine/Events/ApplicationEvent.h"
+#include "AppEngine/Events/KeyEvent.h"
+#include "AppEngine/Events/MouseEvent.h"
 
 namespace AppEngine{
    
@@ -71,6 +73,78 @@ namespace AppEngine{
          data->Width = width;
          WindowResizeEvent e(width, height);
          data->fn(e);
+      });
+
+      glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+      {
+         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+         switch (action)
+         {
+         case GLFW_PRESS:
+         {
+            KeyPressedEvent event(key, 0);
+            data.fn(event);
+            break;
+         }
+         case GLFW_RELEASE:
+         {
+            KeyReleasedEvent event(key);
+            data.fn(event);
+            break;
+         }
+         case GLFW_REPEAT:
+         {
+            KeyPressedEvent event(key, 1);
+            data.fn(event);
+            break;
+         }
+         }
+      });
+
+      glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
+      {
+         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+         KeyTypedEvent event(keycode);
+         data.fn(event);
+      });
+
+      glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+      {
+         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+         switch (action)
+         {
+         case GLFW_PRESS:
+         {
+            MouseButtonPressedEvent event(button);
+            data.fn(event);
+            break;
+         }
+         case GLFW_RELEASE:
+         {
+            MouseButtonReleasedEvent event(button);
+            data.fn(event);
+            break;
+         }
+         }
+      });
+
+      glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
+      {
+         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+         MouseScrolledEvent event((float)xOffset, (float)yOffset);
+         data.fn(event);
+      });
+
+      glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
+      {
+         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+         MouseMovedEvent event((float)xPos, (float)yPos);
+         data.fn(event);
       });
    }
 
