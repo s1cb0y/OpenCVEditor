@@ -20,7 +20,7 @@ private:
    // UI Widgets
    UIToolsWidget* uiTools;
 
-   virtual void OnImGuiRender() {
+   virtual void OnImGuiRender() override {
       // Main body of the Demo window starts here.
       if (!ImGui::Begin("OpenCV Editor", &main_window_active, ImGuiWindowFlags_MenuBar))
       {

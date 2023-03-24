@@ -11,9 +11,11 @@ namespace AppEngine{
       virtual void OnDetach() override;
 
       virtual void OnImGuiRender() override;
+      virtual void OnEvent(Event& event) override;
 
       void Begin();
       void End();
-
+   private:
+      bool m_BlockEvents;
    };
 }
