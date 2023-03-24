@@ -1,12 +1,12 @@
 #pragma once
 #include "App/UI/UIWidget.h"
 #include "AppEngine/Log.h"
-class UIToolsWidget : public UIWidget {
+class UITools : public UIWidget {
 
 public:
 
-   UIToolsWidget() : UIWidget("Tools") {}
-   ~UIToolsWidget()
+   UITools() : UIWidget("Tools") {}
+   ~UITools()
    {
    }
 

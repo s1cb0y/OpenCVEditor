@@ -2,23 +2,27 @@
 #include "AppEngine/Application.h"
 #include "AppEngine/Layer/Layer.h"
 #include "imgui.h"
-#include "App/UI/UIToolsWidget.h"
+#include "App/UI/UITools.h"
+#include "App/UI/UIMenuBar.h"
 #include "AppEngine/Log.h"
-
 //#include <opencv2/opencv.hpp>
+
+
 
 class MainLayer : public AppEngine::Layer {
 public:
    MainLayer() : AppEngine::Layer("MainLayer") {
-      uiTools = new UIToolsWidget();
+      uiTools = new UITools();
+      uiTools->Show();
+      uiMenuBar = new UIMenuBar();
+      uiMenuBar->Show();
    }
 
 private:   
    bool main_window_active = true;
-   bool show_open_dialog = false;
-
    // UI Widgets
-   UIToolsWidget* uiTools;
+   UITools* uiTools;
+   UIMenuBar* uiMenuBar;
 
    virtual void OnImGuiRender() override {
       // Main body of the Demo window starts here.
@@ -29,35 +33,16 @@ private:
          ImGui::End();
          return;
       }
-      if (show_open_dialog) {
-         ShowOpenFileDialog();
-      }
-      // Menu Bar
-      if (ImGui::BeginMenuBar())
-      {       
-         if (ImGui::BeginMenu("File"))
-         {           
-            if (ImGui::MenuItem("Open", "Ctrl+O")) { show_open_dialog = true; uiTools->Show(); }
-            ImGui::EndMenu();
-         }         
-         ImGui::EndMenuBar();
-      }
+      
       ImGui::Text("Hello, welcome to OpenCV Editor");
       ImGui::Text("=================================");
       ImGui::Text("Please start by opening a new image file to process (File -> Open");
       
       uiTools->Render();
+      uiMenuBar->Render();
       
       ImGui::End();
    }  
-
-   void ShowOpenFileDialog(){
-      ImGui::Begin("Open image file", &show_open_dialog);   
-      ImGui::Text("Hello from another window!");
-      if (ImGui::Button("Close Me"))
-         show_open_dialog = false;
-      ImGui::End();
-   }
 
    virtual void OnEvent(AppEngine::Event& event) override {
       std::stringstream ss;

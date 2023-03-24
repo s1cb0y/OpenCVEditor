@@ -48,7 +48,8 @@ project "OpenCVEditor"
         "vendor/GLFW/include",
         "vendor/Glad/include",
         "vendor/imgui",
-        "vendor/spdlog/include"
+        "vendor/spdlog/include",
+        "vendor/PFD"
     }
     
     defines 
