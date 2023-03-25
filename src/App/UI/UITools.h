@@ -10,6 +10,8 @@ public:
    {
    }
 
+private:
+
    virtual void RenderImpl() override {
       ImGui::Text("Here are your tools!");
    }

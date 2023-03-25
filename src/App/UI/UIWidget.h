@@ -12,8 +12,10 @@ public:
       if (show)
          RenderImpl();
    };
-   virtual void RenderImpl() = 0;
+
 private:
+   virtual void RenderImpl() = 0;
+   
    std::string name;
    bool show;
 };

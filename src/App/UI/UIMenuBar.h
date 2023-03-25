@@ -12,27 +12,28 @@ public:
    {
    }
 
+private:
+
    virtual void RenderImpl() override {// Menu Bar
       if (ImGui::BeginMenuBar())
       {       
          if (ImGui::BeginMenu("File"))
          {           
-            if (ImGui::MenuItem("Open", "Ctrl+O")) { test_open_file();}
+            if (ImGui::MenuItem("Open", "Ctrl+O")) { OpenFile();}
             ImGui::EndMenu();
          }         
          ImGui::EndMenuBar();
       }
    }
-private:
 
-   void test_open_file()
+   void OpenFile()
    {
       // File open
       auto f = pfd::open_file("Choose files to read", pfd::path::home(),
-                              { "Text Files (.txt .text)", "*.txt *.text",
+                              { "Image Files (.png .jpeg .jpg)", "*.png *.jpeg *.jpg",
                                  "All Files", "*" },
-                              pfd::opt::multiselect);
-      std::cout << "Selected files:";
+                              pfd::opt::none);
+      std::cout << "Selected file:";
       for (auto const &name : f.result())
          std::cout << " " + name;
       std::cout << "\n";
