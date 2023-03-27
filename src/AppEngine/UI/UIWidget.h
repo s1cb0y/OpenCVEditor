@@ -5,7 +5,7 @@
 class UIWidget {
 public:
    UIWidget(const std::string& name, bool show = true) : name(name), show(show) {}
-
+   virtual ~UIWidget() = default;
    void Show() { show = true; };
    void Hide() { show = false; };
    bool IsVisible() { return show; }
@@ -17,7 +17,7 @@ public:
 
 private:
    virtual void RenderImpl() = 0;
-   
+private:   
    std::string name;
    bool show;
 };

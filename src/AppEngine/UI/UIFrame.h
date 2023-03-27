@@ -9,7 +9,7 @@ public:
    void AddWidget(UIWidget* widget) {
       m_widgets.push_back(widget);
    }
-   ~UIFrame() {
+   ~UIFrame() override {
       for (auto w : m_widgets) {
          if (w)
             delete w;

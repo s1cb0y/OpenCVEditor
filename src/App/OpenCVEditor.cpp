@@ -2,10 +2,11 @@
 #include "AppEngine/Application.h"
 #include "AppEngine/Layer/Layer.h"
 #include "imgui.h"
-#include "App/UI/UITools.h"
-#include "App/UI/UIMenuBar.h"
+#include "App/UI/Components/UITools.h"
+#include "App/UI/Components/UIMenuBar.h"
 #include "AppEngine/UI/UIFrame.h"
 #include "AppEngine/Log.h"
+#include "App/UI/AppData/AppData.h"
 //#include <opencv2/opencv.hpp>
 
 
@@ -13,8 +14,8 @@
 class MainLayer : public AppEngine::Layer {
 public:
    MainLayer() : AppEngine::Layer("MainLayer") {
-      UITools* uiTools = new UITools();
-      UIMenuBar* uiMenuBar = new UIMenuBar();
+      UITools* uiTools = new UITools(&m_appData);
+      UIMenuBar* uiMenuBar = new UIMenuBar(&m_appData);
       m_uiMainFrame = new UIFrame("OpenCV Editor", ImGuiWindowFlags_MenuBar);
       m_uiMainFrame->AddWidget(uiMenuBar);
       m_uiMainFrame->AddWidget(uiTools);
@@ -31,12 +32,11 @@ private:
    }  
 
    virtual void OnEvent(AppEngine::Event& event) override {
-      std::stringstream ss;
-      ss << "Event : " << event.GetName();
-      LOG_INFO(ss.str());
    };
 
    UIFrame* m_uiMainFrame;
+   AppData m_appData;
+
 };
 
 
