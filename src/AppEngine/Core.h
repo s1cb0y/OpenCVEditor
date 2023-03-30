@@ -14,6 +14,8 @@
 
 #define BIT(x) (1 << x)
 
+#define BIND_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
 #ifdef APP_DEBUG
 	#if defined(APP_PLATFORM_WINDOWS)
 		#define APP_DEBUGBREAK() __debugbreak()

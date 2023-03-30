@@ -6,15 +6,13 @@
 
 namespace AppEngine{
 
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
    Application* Application::s_instance = nullptr;
 
    Application::Application(){
       assert(("Application alreay exists!", !s_instance));
       s_instance = this;
       m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
-      m_Window->SetEventCallBack(BIND_EVENT_FN(OnEvent));
+      m_Window->SetEventCallBack(BIND_FN(Application::OnEvent));
       m_ImGuiLayer = new ImGuiLayer();
       PushOverlay(m_ImGuiLayer);
    }
@@ -54,8 +52,8 @@ namespace AppEngine{
 
    void Application::OnEvent(Event &event){
       EventDispatcher dispatcher(event);
-      dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-      dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+      dispatcher.Dispatch<WindowCloseEvent>(BIND_FN(Application::OnWindowClose));
+      dispatcher.Dispatch<WindowResizeEvent>(BIND_FN(Application::OnWindowResize));
 
       for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it){
          if (event.Handled){

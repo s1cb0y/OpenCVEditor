@@ -7,7 +7,7 @@
 #include "AppEngine/UI/UIFrame.h"
 #include "AppEngine/Log.h"
 #include "App/UI/AppData/AppData.h"
-//#include <opencv2/opencv.hpp>
+#include "App/OpenCV/OpenCVFile.h"
 
 
 
@@ -19,23 +19,38 @@ public:
       m_uiMainFrame = new UIFrame("OpenCV Editor", ImGuiWindowFlags_MenuBar);
       m_uiMainFrame->AddWidget(uiMenuBar);
       m_uiMainFrame->AddWidget(uiTools);
+      m_appData.ImageFileString().Subscribe(BIND_FN(MainLayer::OnFilePathChanged));
    }
 
    ~MainLayer() {
-      if (m_uiMainFrame)         
+      if (m_uiMainFrame)
          delete m_uiMainFrame;
    }
 
-private:   
    virtual void OnImGuiRender() override {
       m_uiMainFrame->Render();
-   }  
+   }
 
    virtual void OnEvent(AppEngine::Event& event) override {
    };
 
+   virtual void OnUpdate() override {
+      if(m_Image)
+         m_Image->Render();
+   }
+private:
+   void OnFilePathChanged(std::string& path) {
+      if (m_Image) {
+         delete m_Image;
+         m_Image = nullptr;
+      }
+      m_Image = new CVImage(path);
+   }
+private:   
+
    UIFrame* m_uiMainFrame;
    AppData m_appData;
+   CVImage* m_Image;
 
 };
 

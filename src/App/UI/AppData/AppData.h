@@ -1,6 +1,7 @@
 #pragma once
 #include "AppEngine/Core.h"
 #include "AppEngine/Observables/Observables.h"
+#include "App/OpenCV/OpenCVFile.h"
 
 class AppData
 {

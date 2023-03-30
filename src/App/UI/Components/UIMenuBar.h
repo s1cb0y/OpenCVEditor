@@ -37,13 +37,8 @@ private:
                               { "Image Files (.png .jpeg .jpg)", "*.png *.jpeg *.jpg",
                                  "All Files", "*" },
                               pfd::opt::none);
-      std::cout << "Selected file:";
-      for (auto const &name : f.result()){
-         std::cout << " " + name;
-         m_AppData->ImageFileString().Set(name);
-      }
-      std::cout << "\n";
-      
+      if (!f.result().empty()) 
+         m_AppData->ImageFileString().Set(f.result()[0]); // update observable
    }
 
 private:

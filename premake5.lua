@@ -49,7 +49,8 @@ project "OpenCVEditor"
         "vendor/Glad/include",
         "vendor/imgui",
         "vendor/spdlog/include",
-        "vendor/PFD"
+        "vendor/PFD",
+        "c:/Tools/opencv/build/include"
     }
     
     defines 
@@ -81,12 +82,29 @@ project "OpenCVEditor"
     
     filter "system:windows"
         systemversion "latest"
+        libdirs 
+        {
+            "C:/Tools/opencv/build/x64/vc15/lib/Release"
+        }
         links
         {
             "GLFW",
             "Glad",
             "ImGui",
-            "opengl32.lib"
+            "opengl32.lib",
+            "opencv_calib3d470.lib",
+            "opencv_core470.lib",
+            "opencv_features2d470.lib",
+            "opencv_flann470.lib",
+            "opencv_highgui470.lib",
+            "opencv_imgproc470.lib",
+            "opencv_ml470.lib",
+            "opencv_objdetect470.lib",
+            "opencv_photo470.lib",
+            "opencv_stitching470.lib",
+            "opencv_ts470.lib",
+            "opencv_video470.lib",
+            "opencv_imgcodecs470.lib"
         }
 
 
