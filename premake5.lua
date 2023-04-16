@@ -49,8 +49,7 @@ project "OpenCVEditor"
         "vendor/Glad/include",
         "vendor/imgui",
         "vendor/spdlog/include",
-        "vendor/PFD",
-        "c:/Tools/opencv/build/include"
+        "vendor/PFD"
     }
     
     defines 
@@ -70,18 +69,36 @@ project "OpenCVEditor"
         }
 
     filter "system:linux"
+        
+        includedirs
+        {            
+            "/usr/local/include/opencv4"
+        }
         linkoptions { "-ldl -lpthread" }
+        libdirs 
+        {
+            "/usr/local/lib"
+        }
         links
         {
             "GLFW",
             "Glad",
             "ImGui",
             "GL",
-            "X11"
+            "X11",
+            "opencv_core", 
+            "opencv_imgproc", 
+            "opencv_highgui",
+            "opencv_imgcodecs"
+
         }
     
     filter "system:windows"
         systemversion "latest"
+        includedirs
+        {            
+            "c:/Tools/opencv/build/include"
+        }
         libdirs 
         {
             "C:/Tools/opencv/build/x64/vc15/lib/Release"
