@@ -20,6 +20,7 @@ public:
       m_uiMainFrame->AddWidget(uiMenuBar);
       m_uiMainFrame->AddWidget(uiTools);
       m_appData.ImageFileString().Subscribe(BIND_FN(MainLayer::OnFilePathChanged));
+      m_Image = nullptr;
    }
 
    ~MainLayer() {
