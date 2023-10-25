@@ -33,10 +33,6 @@ public:
          glTexCoord2d(1.0, 0.0); glVertex2d(+1.0, -1.0);
          glTexCoord2d(1.0, 1.0); glVertex2d(+1.0, +1.0);
          glTexCoord2d(0.0, 1.0); glVertex2d(-1.0, +1.0);
-        /* glTexCoord2i(0, 0); glVertex2i(0, 0);
-         glTexCoord2i(0, 1); glVertex2i(0, m_Window_height);
-         glTexCoord2i(1, 1); glVertex2i(m_Window_width, m_Window_height);
-         glTexCoord2i(1, 0); glVertex2i(m_Window_width, 0);*/
          glEnd();
 
          glDeleteTextures(1, &image_tex);
