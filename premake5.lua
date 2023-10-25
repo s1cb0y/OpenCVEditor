@@ -58,6 +58,12 @@ project "OpenCVEditor"
     }
 
     filter "system:macosx"
+        includedirs{
+         "/usr/local/Cellar/opencv/4.7.0_7/include/opencv4"
+        }
+        libdirs{
+         "/usr/local/Cellar/opencv/4.7.0_7/lib"
+        }
         links
         {
             "OpenGL.framework",
@@ -65,7 +71,11 @@ project "OpenCVEditor"
             "Cocoa.framework",
             "GLFW",
             "Glad",
-            "ImGui"
+            "ImGui",
+            "opencv_core", 
+            "opencv_imgproc", 
+            "opencv_highgui",
+            "opencv_imgcodecs"
         }
 
     filter "system:linux"
