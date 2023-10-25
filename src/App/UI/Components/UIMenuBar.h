@@ -3,6 +3,8 @@
 #include "AppEngine/Log.h"
 #include "PFD.h"
 #include "App/UI/AppData/AppData.h"
+#include "AppEngine/Application.h"
+#include "AppEngine/Events/Event.h"
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -30,8 +32,8 @@ private:
       {       
          if (ImGui::BeginMenu("File"))
          {           
-            if (ImGui::MenuItem("Open", "Ctrl+O")) { OpenFile();}
-           // if (ImGui::MenuItem("Close App", "Ctrl+X")) { CloseApp(); }
+            if (ImGui::MenuItem("Open", "Ctrl+O")) { OpenFile(); }
+            if (ImGui::MenuItem("Close App", "Ctrl+X")) { CloseApp(); }
             ImGui::EndMenu();
          }              
          ImGui::EndMenuBar();
@@ -48,6 +50,12 @@ private:
       if (!f.result().empty()) 
          m_AppData->ImageFileString().Set(f.result()[0]); // update observable
    }
+
+   void CloseApp(){
+      AppEngine::WindowCloseEvent event;
+      AppEngine::Application::Get().OnEvent(event);
+   }
+   
 
 private:
    AppData* m_AppData;

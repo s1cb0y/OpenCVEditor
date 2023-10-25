@@ -37,6 +37,7 @@ public:
 
          glDeleteTextures(1, &image_tex);
          glDisable(GL_TEXTURE_2D);
+         cv::imshow("Picure", m_ImageData);
 
       }
    }

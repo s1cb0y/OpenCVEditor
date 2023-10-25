@@ -32,16 +32,16 @@ private:
          static int gaussianSize = 45;
          ImGui::InputInt("Kernel Size", &gaussianSize);  ImGui::SameLine();
          if (checkGaussian) {
-            Filter();
+            Filter(gaussianSize);
          }
          ImGui::TreePop();
       }
 
    }
-   void Filter() {
+   void Filter(int size) {
       CVImage *image = m_AppData->GetImage();
       if (image)
-         cv::GaussianBlur(image->GetData(), image->GetData(), cv::Size(45, 45), 0);
+         cv::GaussianBlur(image->GetData(), image->GetData(), cv::Size(size, size), 0);
    }
 
 

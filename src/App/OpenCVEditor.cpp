@@ -7,7 +7,7 @@
 #include "AppEngine/UI/UIFrame.h"
 #include "AppEngine/Log.h"
 #include "App/UI/AppData/AppData.h"
-#include "App/OpenCV/OpenCVFile.h"
+#include "App/OpenCV/OpenCVImage.h"
 
 
 
