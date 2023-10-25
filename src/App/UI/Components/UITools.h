@@ -9,7 +9,7 @@ public:
 
    UITools(AppData* appData) : UIWidget("Tools") {
       m_AppData = appData;
-      m_ImageFilePath = "No file was selected!";
+      m_ImageFilePath = "";
       m_AppData->ImageFileString().Subscribe(BIND_FN(UITools::DispayFilePath));
    }
    ~UITools(){}
@@ -19,11 +19,31 @@ private:
    virtual void RenderImpl() override {
       ImGui::Text("Hello, welcome to OpenCV Editor");
       ImGui::Text("=================================");
-      ImGui::Text("Please start by opening a new image file to process (File -> Open)");
-          
+      if (m_ImageFilePath.empty()) 
+         ImGui::Text("Please start by opening a new image file to process (File -> Open)");
+      else
+         ImGui::Text("Currently selected file: %s", + m_ImageFilePath.c_str());
+      ImGui::Text("=================================");
+      ImGui::Text("Filters and Morphs");
+      if (ImGui::TreeNode("Filters")){
+     
+         static bool checkGaussian = false;
+         ImGui::Checkbox("Gaussian", &checkGaussian);
+         static int gaussianSize = 45;
+         ImGui::InputInt("Kernel Size", &gaussianSize);  ImGui::SameLine();
+         if (checkGaussian) {
+            Filter();
+         }
+         ImGui::TreePop();
+      }
 
-      ImGui::Text(m_ImageFilePath.c_str());
    }
+   void Filter() {
+      CVImage *image = m_AppData->GetImage();
+      if (image)
+         cv::GaussianBlur(image->GetData(), image->GetData(), cv::Size(45, 45), 0);
+   }
+
 
    void DispayFilePath(std::string& path){
       m_ImageFilePath = path;

@@ -3,6 +3,13 @@
 #include "AppEngine/Log.h"
 #include "PFD.h"
 #include "App/UI/AppData/AppData.h"
+
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc.hpp>
+#include "opencv2/imgproc/imgproc.hpp"
+
 class UIMenuBar : public UIWidget {
 
 public:
@@ -24,8 +31,9 @@ private:
          if (ImGui::BeginMenu("File"))
          {           
             if (ImGui::MenuItem("Open", "Ctrl+O")) { OpenFile();}
+           // if (ImGui::MenuItem("Close App", "Ctrl+X")) { CloseApp(); }
             ImGui::EndMenu();
-         }         
+         }              
          ImGui::EndMenuBar();
       }
    }

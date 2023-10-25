@@ -11,26 +11,32 @@
 #include "glad/glad.h"
 
 class CVImage{
+   bool scale = false;
 public:
    CVImage(const std::string& path) : m_Window_width(0), m_Window_height(0){
       Load(path);
    }
-
+   
    void Render() {
-      if (!m_Image.empty()) {
+      if (!m_ImageData.empty()) {
          // Clear color and depth buffers
          glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
          glMatrixMode(GL_MODELVIEW);     // Operate on model-view matrix
-
+         if (scale)
+            glScalef(1.0 / 2.0, 1.0 / 2.0, 1.0); 
          glEnable(GL_TEXTURE_2D);
-         GLuint image_tex = MatToTexture(m_Image, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP);
+         GLuint image_tex = MatToTexture(m_ImageData, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP);
 
          /* Draw a quad */
          glBegin(GL_QUADS);
-         glTexCoord2i(0, 0); glVertex2i(0, 0);
+         glTexCoord2d(0.0, 0.0); glVertex2d(-1.0, -1.0);
+         glTexCoord2d(1.0, 0.0); glVertex2d(+1.0, -1.0);
+         glTexCoord2d(1.0, 1.0); glVertex2d(+1.0, +1.0);
+         glTexCoord2d(0.0, 1.0); glVertex2d(-1.0, +1.0);
+        /* glTexCoord2i(0, 0); glVertex2i(0, 0);
          glTexCoord2i(0, 1); glVertex2i(0, m_Window_height);
          glTexCoord2i(1, 1); glVertex2i(m_Window_width, m_Window_height);
-         glTexCoord2i(1, 0); glVertex2i(m_Window_width, 0);
+         glTexCoord2i(1, 0); glVertex2i(m_Window_width, 0);*/
          glEnd();
 
          glDeleteTextures(1, &image_tex);
@@ -38,17 +44,16 @@ public:
 
       }
    }
+
+   cv::Mat& GetData() { return m_ImageData; }
+
 private:
    // Load the images and stores it as cv::Mat
    bool Load(const std::string& path) {
-      m_Image = cv::imread(path);
-      int down_width = 1280;
-      int down_height = 720;
-      cv::Size down_points = cv::Size(down_width, down_height);
-      cv::resize(m_Image, m_Image, down_points);
-      if (!m_Image.empty()) {
-         m_Window_width = m_Image.cols;
-         m_Window_height = m_Image.rows;
+      m_ImageData = cv::imread(path);
+      if (!m_ImageData.empty()) {
+         m_Window_width = m_ImageData.cols;
+         m_Window_height = m_ImageData.rows;
          LOG_INFO(printf("Loading image (size %d : %d) succesful!\n", m_Window_width, m_Window_height));
          return true;
       }
@@ -117,7 +122,7 @@ private:
    }
    
 private:
-   cv::Mat m_Image;
+   cv::Mat m_ImageData;
    unsigned int m_Window_width;
    unsigned int m_Window_height;
 };

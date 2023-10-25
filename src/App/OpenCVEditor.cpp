@@ -20,7 +20,6 @@ public:
       m_uiMainFrame->AddWidget(uiMenuBar);
       m_uiMainFrame->AddWidget(uiTools);
       m_appData.ImageFileString().Subscribe(BIND_FN(MainLayer::OnFilePathChanged));
-      m_Image = nullptr;
    }
 
    ~MainLayer() {
@@ -36,22 +35,17 @@ public:
    };
 
    virtual void OnUpdate() override {
-      if(m_Image)
-         m_Image->Render();
+      if(m_appData.GetImage())
+         m_appData.GetImage()->Render();
    }
 private:
-   void OnFilePathChanged(std::string& path) {
-      if (m_Image) {
-         delete m_Image;
-         m_Image = nullptr;
-      }
-      m_Image = new CVImage(path);
+   void OnFilePathChanged(std::string& path) {      
+      m_appData.SetImage(new CVImage(path));
    }
 private:   
 
    UIFrame* m_uiMainFrame;
    AppData m_appData;
-   CVImage* m_Image;
 
 };
 

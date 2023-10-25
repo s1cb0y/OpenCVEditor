@@ -44,14 +44,13 @@ namespace AppEngine{
       IMGUI_CHECKVERSION();
       ImGui::CreateContext();
       ImGuiIO& io = ImGui::GetIO(); (void)io;
-      io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+      io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
       io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 	   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
       
 
       // Setup Dear ImGui style
       ImGui::StyleColorsDark();
-      //ImGui::StyleColorsClassic();
 
       // Setup Platform/Renderer backends
       Application& app = Application::Get();
@@ -77,9 +76,9 @@ namespace AppEngine{
    }
    
    void ImGuiLayer::OnImGuiRender() {  
-      /*static bool show = true;
+      static bool show = true;
       ImGui::ShowDemoWindow(&show);
-      */
+      
    }
 
 }
