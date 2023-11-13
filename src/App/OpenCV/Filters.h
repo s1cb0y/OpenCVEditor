@@ -1,7 +1,7 @@
 #pragma once
 #include "App/OpenCV/OpenCVImage.h"
 
-class OpenVCFilters{
+class OpenCVFilters{
 public:
 
    static void GaussianBlur(CVImage *image, int size){

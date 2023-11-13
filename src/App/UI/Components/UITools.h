@@ -2,6 +2,7 @@
 #include "AppEngine/UI/UIWidget.h"
 #include "AppEngine/Log.h"
 #include "App/UI/AppData/AppData.h"
+#include "App/UI/Components/UIFilters.h"
 #include "App/OpenCV/Filters.h"
 
 class UITools : public UIWidget {
@@ -12,6 +13,7 @@ public:
       m_AppData = appData;
       m_ImageFilePath = "";
       m_AppData->ImageFileString().Subscribe(BIND_FN(UITools::DispayFilePath));
+      m_UiFilters = new UIFilters(appData);
    }
    ~UITools(){}
 
@@ -25,8 +27,9 @@ private:
       else
          ImGui::Text("Currently selected file: %s", + m_ImageFilePath.c_str());
       ImGui::Text("=================================");
+      ImGui::Text("========== Tools section =============");
      
-
+      m_UiFilters->Render();
    }
 
    void DispayFilePath(std::string& path){
@@ -35,5 +38,6 @@ private:
 private:
    AppData* m_AppData;
    std::string m_ImageFilePath;
+   UIFilters* m_UiFilters;
 };
 
