@@ -42,7 +42,11 @@ public:
       }
    }
 
-   cv::Mat& GetData() { return m_ImageData; }
+   // Gets the current (processed) image data
+   cv::Mat& GetSrcData() { return m_ImageData; }
+
+   // Gets the refernce to the new (processed) data
+   cv::Mat& GetDestData() { return m_ImageData; }
 
 private:
    // Load the images and stores it as cv::Mat
