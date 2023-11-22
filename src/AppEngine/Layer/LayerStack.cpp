@@ -10,7 +10,7 @@ namespace AppEngine {
       }
    }
    void LayerStack::PushLayer(Layer* layer){
-      m_layers.emplace(m_layers.end() + m_layerInsertIndex, layer);
+      m_layers.emplace(m_layers.begin() + m_layerInsertIndex, layer);
       m_layerInsertIndex++;
    }
    void LayerStack::PopLayer(Layer* layer){

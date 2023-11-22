@@ -2,7 +2,7 @@
 #include "AppEngine/UI/UIWidget.h"
 #include "AppEngine/Log.h"
 #include "PFD.h"
-#include "App/UI/AppData/AppData.h"
+#include "App/AppData/AppData.h"
 #include "AppEngine/Application.h"
 #include "AppEngine/Events/Event.h"
 
@@ -47,8 +47,11 @@ private:
                               { "Image Files (.png .jpeg .jpg)", "*.png *.jpeg *.jpg",
                                  "All Files", "*" },
                               pfd::opt::none);
-      if (!f.result().empty()) 
-         m_AppData->ImageFileString().Set(f.result()[0]); // update observable
+      if (!f.result().empty()) {
+         AppEngine::OpenImageEvent event(f.result()[0]);
+         AppEngine::Application::Get().OnEvent(event);         
+        // m_AppData->ImageFileString().Set(f.result()[0]); // update observable
+      }
    }
 
    void CloseApp(){

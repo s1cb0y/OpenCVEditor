@@ -1,8 +1,11 @@
 #pragma once
 #include "AppEngine/UI/UISection.h"
 #include "AppEngine/Log.h"
-#include "App/UI/AppData/AppData.h"
+#include "App/AppData/AppData.h"
 #include "App/OpenCV/Filters.h"
+#include "AppEngine/Events/ApplicationEvent.h"
+#include "AppEngine/Events/ImageProcessingEvent.h"
+
 class UIFilters : public UIWidget {
 
 public:
@@ -17,6 +20,7 @@ private:
    virtual void RenderImpl() override {
 
       if (ImGui::TreeNode("Filters")){
+         /* ----------- Gaussian Blur ---------------------*/
          static bool checkGaussian = false;
          static bool oldCheckGaussian = checkGaussian;
          ImGui::Checkbox("Gaussian", &checkGaussian); ImGui::SameLine();
@@ -25,6 +29,7 @@ private:
          if (checkGaussian != oldCheckGaussian) {
             oldCheckGaussian = checkGaussian;
             if (checkGaussian) {
+               AppEngine::Application::Get().OnEvent(AppEngine::AddImageProcessingOperationEvent("Gaussian Filter"));
                if (gaussianSize % 2)
                   OpenCVFilters::GaussianBlur(m_AppData->GetImage(), gaussianSize);
                else

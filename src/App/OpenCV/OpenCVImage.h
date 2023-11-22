@@ -13,8 +13,12 @@
 class CVImage{
    bool scale = false;
 public:
-   CVImage(const std::string& path) : m_Window_width(0), m_Window_height(0){
+   CVImage(const std::string& path) : m_Window_width(0), m_Window_height(0), m_FilePath(path){      
       Load(path);
+   }
+
+   std::string& GetFilePath() {
+      return m_FilePath;
    }
    
    void Render() {
@@ -37,7 +41,7 @@ public:
 
          glDeleteTextures(1, &image_tex);
          glDisable(GL_TEXTURE_2D);
-        // cv::imshow("Picure", m_ImageData);
+         //cv::imshow("Picure", m_ImageData);
 
       }
    }
@@ -126,4 +130,5 @@ private:
    cv::Mat m_ImageData;
    unsigned int m_Window_width;
    unsigned int m_Window_height;
+   std::string m_FilePath;
 };

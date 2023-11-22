@@ -5,7 +5,7 @@ class OpenCVFilters{
 public:
 
    static void GaussianBlur(CVImage *image, int size){
-      if (image)
+      if (image)         
          cv::GaussianBlur(image->GetSrcData(), image->GetDestData(), cv::Size(size, size), 0);
    }
 };

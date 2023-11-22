@@ -1,62 +1,26 @@
 #include "AppEngine/Core.h"
 #include "AppEngine/Application.h"
 #include "AppEngine/Layer/Layer.h"
-#include "imgui.h"
-#include "App/UI/Components/UITools.h"
-#include "App/UI/Components/UIMenuBar.h"
-#include "AppEngine/UI/UIFrame.h"
+
+
+
 #include "AppEngine/Log.h"
-#include "App/UI/AppData/AppData.h"
+#include "App/AppData/AppData.h"
 #include "App/OpenCV/OpenCVImage.h"
+// Layers
+#include "App/Layers/ImageLayer.h"
+#include "App/Layers/ImageProcessingLayer.h"
 
-
-
-class MainLayer : public AppEngine::Layer {
-public:
-   MainLayer() : AppEngine::Layer("MainLayer") {
-      UITools* uiTools = new UITools(&m_appData);
-      UIMenuBar* uiMenuBar = new UIMenuBar(&m_appData);
-      m_uiMainFrame = new UIFrame("OpenCV Editor", ImGuiWindowFlags_MenuBar);
-      m_uiMainFrame->AddWidget(uiMenuBar);
-      m_uiMainFrame->AddWidget(uiTools);
-      m_appData.ImageFileString().Subscribe(BIND_FN(MainLayer::OnFilePathChanged));
-   }
-
-   ~MainLayer() {
-      if (m_uiMainFrame)
-         delete m_uiMainFrame;
-   }
-
-   virtual void OnImGuiRender() override {
-      m_uiMainFrame->Render();
-   }
-
-   virtual void OnEvent(AppEngine::Event& event) override {
-   };
-
-   virtual void OnUpdate() override {
-      if(m_appData.GetImage())
-         m_appData.GetImage()->Render();
-   }
-private:
-   void OnFilePathChanged(std::string& path) {      
-      m_appData.SetImage(new CVImage(path));
-   }
-private:   
-
-   UIFrame* m_uiMainFrame;
-   AppData m_appData;
-
-};
 
 
 class OpenCVEditor : public AppEngine::Application {
 public:
    OpenCVEditor() : AppEngine::Application()
    {
-      PushLayer(new MainLayer);
+      PushLayer(new ImageLayer(&m_AppData));
+      PushLayer(new ImageProcessingLayer(&m_AppData));
    }
-
+   AppData m_AppData;
 };
 
 AppEngine::Application* AppEngine::CreateApplication(){
