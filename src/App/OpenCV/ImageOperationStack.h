@@ -4,8 +4,9 @@
 #include "App/OpenCV/ImageOperation.h"
 
 class ImageOperationStack {
+
 public:
-   ImageOperationStack(CVImage* image) : m_Image(image){}
+   ImageOperationStack(){}
    ~ImageOperationStack() {}
 
    void PushOperation(ImageOperation* operation) {
@@ -16,8 +17,12 @@ public:
    void PopOperation(ImageOperation* operation) {
       auto it = std::find(m_Operations.begin(), m_Operations.end(), operation);
       if (it != m_Operations.end()) 
-         m_Operations.erase(operation);
+         m_Operations.erase(it);
       this->ProcessImage();
+   }
+
+   void SetImage(CVImage *image){
+      m_Image = image;
    }
 
 private:

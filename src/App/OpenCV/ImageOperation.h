@@ -17,11 +17,12 @@ enum class OperationCategory
 
 class ImageOperation {
 public:
+   virtual ~ImageOperation() = default;
    virtual OperationType GetOperationType() const = 0;
    virtual const char* GetName() const = 0;
    virtual OperationCategory GetOperationCategory() const = 0;
    virtual std::string ToString() const { return GetName(); }
 
-   virtual void Process(CVImage* image) const = 0;
+   virtual void Process(CVImage* image) = 0;
 };
 

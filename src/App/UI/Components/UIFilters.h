@@ -29,7 +29,7 @@ private:
          if (checkGaussian != oldCheckGaussian) {
             oldCheckGaussian = checkGaussian;
             if (checkGaussian) {
-               AppEngine::AddImageProcessingOperationEvent event = AppEngine::AddImageProcessingOperationEvent("Gaussian Filter");
+               AppEngine::AddImageProcessingOperationEvent event = AppEngine::AddImageProcessingOperationEvent("GaussianBlur");
                AppEngine::Application::Get().OnEvent(event);
                if (gaussianSize % 2)
                   OpenCVFilters::GaussianBlur(m_AppData->GetImage(), gaussianSize);

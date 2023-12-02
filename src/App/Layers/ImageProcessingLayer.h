@@ -6,6 +6,7 @@
 #include "AppEngine/Events/ImageProcessingEvent.h"
 
 #include "App/AppData/AppData.h"
+#include "App/OpenCV/Filters.h"
 
 
 class ImageProcessingLayer : public AppEngine::Layer {
@@ -29,6 +30,10 @@ private:
  
    bool OnAddImageProcessingOperation(AppEngine::AddImageProcessingOperationEvent& e) {
       LOG_INFO("Added new image processing operation: {}", e.GetName());
+      if (e.GetName() == "GaussianBlur") {
+         m_appData->GetImageOperationStack().PushOperation(new GaussianBlurFilter(4, 0)); 
+      }
+      
       return true;
    }
    bool OnDeleteImageProcessingOperation(AppEngine::DeleteImageProcessingOperationEvent& e) {
