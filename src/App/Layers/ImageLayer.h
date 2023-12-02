@@ -7,7 +7,7 @@
 #include "App/UI/Components/UIMenuBar.h"
 #include "AppEngine/UI/UIFrame.h"
 #include "App/AppData/AppData.h"
-
+#include "App/OpenCV/ImageOperationStack.h"
 
 class ImageLayer : public AppEngine::Layer {
 public:
@@ -56,5 +56,6 @@ private:
 
    UIFrame* m_UiMainFrame;
    AppData* m_AppData;
+   ImageOperationStack m_ImageProcessingStack;
 
 };

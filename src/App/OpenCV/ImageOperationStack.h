@@ -10,30 +10,25 @@ public:
    ~ImageOperationStack() {}
 
    void PushOperation(ImageOperation* operation) {
+      LOG_INFO("Push image operation {} to operation stack", operation->GetName());
       m_Operations.push_back(operation);
-      this->ProcessImage();
    }
 
    void PopOperation(ImageOperation* operation) {
+      LOG_INFO("Pop image operation {} to operation stack", operation->GetName());
       auto it = std::find(m_Operations.begin(), m_Operations.end(), operation);
       if (it != m_Operations.end()) 
          m_Operations.erase(it);
-      this->ProcessImage();
    }
 
-   void SetImage(CVImage *image){
-      m_Image = image;
-   }
-
-private:
-   
-   void ProcessImage() {
+   bool ProcessImage(CVImage* image) {
+      bool success = true;
       for (auto operation : m_Operations){
-         operation->Process(m_Image);
+         success &= operation->Process(image);
       }
+      return success;
    }
 
 private:
-   CVImage* m_Image;
    std::vector<ImageOperation*> m_Operations;
 };

@@ -9,8 +9,6 @@
 #include "App/OpenCV/OpenCVImage.h"
 // Layers
 #include "App/Layers/ImageLayer.h"
-#include "App/Layers/ImageProcessingLayer.h"
-
 
 
 class OpenCVEditor : public AppEngine::Application {
@@ -18,7 +16,6 @@ public:
    OpenCVEditor() : AppEngine::Application()
    {
       PushLayer(new ImageLayer(&m_AppData));
-      PushLayer(new ImageProcessingLayer(&m_AppData));
    }
    AppData m_AppData;
 };

@@ -3,8 +3,6 @@
 #include "AppEngine/Log.h"
 #include "App/AppData/AppData.h"
 #include "App/OpenCV/Filters.h"
-#include "AppEngine/Events/ApplicationEvent.h"
-#include "AppEngine/Events/ImageProcessingEvent.h"
 
 class UIFilters : public UIWidget {
 
@@ -29,12 +27,8 @@ private:
          if (checkGaussian != oldCheckGaussian) {
             oldCheckGaussian = checkGaussian;
             if (checkGaussian) {
-               AppEngine::AddImageProcessingOperationEvent event = AppEngine::AddImageProcessingOperationEvent("GaussianBlur");
-               AppEngine::Application::Get().OnEvent(event);
-               if (gaussianSize % 2)
-                  OpenCVFilters::GaussianBlur(m_AppData->GetImage(), gaussianSize);
-               else
-                  LOG_ERROR("Please select an odd size for gaussian blur filter")               
+               m_AppData->GetImageOperationStack().PushOperation(new GaussianBlurFilter(gaussianSize, 0));
+               m_AppData->GetImageOperationStack().ProcessImage(m_AppData->GetImage());
             }
          }
          ImGui::TreePop();

@@ -1,25 +1,19 @@
 #pragma once
+
 #include "App/OpenCV/OpenCVImage.h"
 #include "App/OpenCV/ImageOperation.h"
 
-class OpenCVFilters{
-public:
-
-   static void GaussianBlur(CVImage *image, int size){
-      if (image)         
-         cv::GaussianBlur(image->GetSrcData(), image->GetDestData(), cv::Size(size, size), 0);
-   }
-};
 
 class GaussianBlurFilter : public ImageOperation{
+
 public:
    GaussianBlurFilter( uint8_t size, double sigmaX, double sigmaY = 0, cv::BorderTypes borderType = cv::BORDER_DEFAULT) 
-   : m_Size(size), m_SigmaX(sigmaX), m_SigmaY(sigmaY), m_BorderType(borderType){
-   }
+   : m_Size(size), m_SigmaX(sigmaX), m_SigmaY(sigmaY), m_BorderType(borderType){}
 
-private:
+   ~GaussianBlurFilter(){}
+
    virtual OperationType GetOperationType() const override {
-      return OperationType::Filter;
+      return OperationType::FilterGaussianBlur;
    }
    
    virtual const char* GetName() const override {
@@ -35,9 +29,16 @@ private:
       return ss.str();
    }
 
-   virtual void Process(CVImage* image) override {
+   virtual bool Process(CVImage* image) override {
+      bool success = false;
       if (image)
-         cv::GaussianBlur(image->GetSrcData(), image->GetDestData(), cv::Size(m_Size, m_Size), m_SigmaX, m_SigmaY, m_BorderType);
+         if (m_Size % 2){
+            cv::GaussianBlur(image->GetSrcData(), image->GetDestData(), cv::Size(m_Size, m_Size), m_SigmaX, m_SigmaY, m_BorderType);
+            success = true;;
+         } else {
+            LOG_ERROR("GaussianBlurFilter: Please select an odd kernel size for gaussian blur filter");
+         }
+      return success;  
    }
 
 private:

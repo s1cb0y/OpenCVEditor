@@ -2,10 +2,10 @@
 
 #include "AppEngine/Core.h"
 #include "App/OpenCV/OpenCVImage.h"
-enum class OperationType
+enum OperationType
 {
    None = 0,
-   Filter
+   FilterGaussianBlur
 };
 
 enum class OperationCategory
@@ -23,6 +23,6 @@ public:
    virtual OperationCategory GetOperationCategory() const = 0;
    virtual std::string ToString() const { return GetName(); }
 
-   virtual void Process(CVImage* image) = 0;
+   virtual bool Process(CVImage* image) = 0;
 };
 

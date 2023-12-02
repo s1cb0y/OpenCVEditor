@@ -5,19 +5,19 @@
 namespace AppEngine{
 
    class AddImageProcessingOperationEvent : public Event {
-      std::string m_Name;
+      int m_OperationType;
    public:
-      AddImageProcessingOperationEvent(const std::string& name) : m_Name(name) {};
-      std::string& GetName() { return m_Name; }
+      AddImageProcessingOperationEvent(int operationType) : m_OperationType(operationType) {};
+      int GetType() { return m_OperationType; }
       EVENT_CLASS_TYPE(AddImageProcessingOperation);
       EVENT_CLASS_CATEGORY(EventCategory::EventCategoryImageProcessing);
    };
 
    class DeleteImageProcessingOperationEvent : public Event {
-      std::string m_Name;
+      int m_OperationType;
    public:
-      DeleteImageProcessingOperationEvent(const std::string& name) : m_Name(name) {};
-      std::string& GetName() { return m_Name; }
+      DeleteImageProcessingOperationEvent(int operationType) : m_OperationType(operationType) {};
+      int GetType() { return m_OperationType; }
       EVENT_CLASS_TYPE(DeleteImageProcessingOperation);
       EVENT_CLASS_CATEGORY(EventCategory::EventCategoryImageProcessing);
    };
