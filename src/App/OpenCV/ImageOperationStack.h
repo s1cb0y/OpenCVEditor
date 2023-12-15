@@ -6,19 +6,22 @@
 class ImageOperationStack {
 
 public:
-   ImageOperationStack(){}
+   ImageOperationStack() : m_OpCount(0){}
    ~ImageOperationStack() {}
 
-   void PushOperation(ImageOperation* operation) {
+   int PushOperation(ImageOperation* operation) {
       LOG_INFO("Push image operation {} to operation stack", operation->GetName());
       m_Operations.push_back(operation);
+      return ++m_OpCount;
    }
 
-   void PopOperation(ImageOperation* operation) {
-      LOG_INFO("Pop image operation {} to operation stack", operation->GetName());
+   void PopOperation(u_int32_t opId) {
       auto it = std::find(m_Operations.begin(), m_Operations.end(), operation);
-      if (it != m_Operations.end()) 
+      if (it != m_Operations.end()){
+         LOG_INFO("Pop image operation {} from operation stack", operation->GetName());
          m_Operations.erase(it);
+         --m_OpCount;
+      }
    }
 
    bool ProcessImage(CVImage* image) {
@@ -31,4 +34,5 @@ public:
 
 private:
    std::vector<ImageOperation*> m_Operations;
+   u_int32_t m_OpCount;
 };
