@@ -4,3 +4,5 @@ This app serves as a playground for various OpenCV functions. The UI is created 
 The only requirement is an already installed OpenCV environment. 
 Please add the OpenCV library paths to the path variable. If necessary the dynamic libraries have to be copied to the executables.
 It can be, that your library paths differ from those defined in the premake5.lua file. Please modify the path if nedded.
+
+git clone --recurse-submodules git@github.com:s1cb0y/OpenCVEditor.git
