@@ -33,7 +33,7 @@ public:
       bool success = false;
       if (image)
          if (m_Size % 2){
-            cv::GaussianBlur(image->GetSrcData(), image->GetDestData(), cv::Size(m_Size, m_Size), m_SigmaX, m_SigmaY, m_BorderType);
+            cv::GaussianBlur(image->GetProcessedData(), image->GetProcessedData(), cv::Size(m_Size, m_Size), m_SigmaX, m_SigmaY, m_BorderType);
             success = true;;
          } else {
             LOG_ERROR("GaussianBlurFilter: Please select an odd kernel size for gaussian blur filter");

@@ -22,7 +22,7 @@ public:
 
    ~ImageLayer() {
       if (m_UiMainFrame)
-         delete m_UiMainFrame;
+         delete m_UiMainFrame;         
    }
 
    virtual void OnImGuiRender() override {      
@@ -36,8 +36,9 @@ public:
    };
 
    virtual void OnUpdate() override {
-      if (m_AppData->GetImage())
+      if (m_AppData->GetImage()){
          m_AppData->GetImage()->Render();
+      }
    }
 private:
    
@@ -56,6 +57,4 @@ private:
 
    UIFrame* m_UiMainFrame;
    AppData* m_AppData;
-   ImageOperationStack m_ImageProcessingStack;
-
 };

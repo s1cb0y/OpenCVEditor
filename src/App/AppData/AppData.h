@@ -18,6 +18,7 @@ public:
    Observable<std::string>& ImageFileString() { return m_ImageFilePath;}
    void SetImage(CVImage* image) { 
       m_Image = image; 
+      m_ImageOperationStack.SetImage(image);
    }
    CVImage* GetImage() { return m_Image; }
    ImageOperationStack& GetImageOperationStack() { return m_ImageOperationStack; }

@@ -28,8 +28,7 @@ private:
          if (checkGaussian != oldCheckGaussian) {
             oldCheckGaussian = checkGaussian;
             if (checkGaussian) {
-               op_id = m_AppData->GetImageOperationStack().PushOperation(new GaussianBlurFilter(gaussianSize, 0));
-               m_AppData->GetImageOperationStack().ProcessImage(m_AppData->GetImage());
+               op_id = m_AppData->GetImageOperationStack().PushOperation(new GaussianBlurFilter(gaussianSize, 0));               
             } else {
                // delete operations
                m_AppData->GetImageOperationStack().PopOperation(op_id);

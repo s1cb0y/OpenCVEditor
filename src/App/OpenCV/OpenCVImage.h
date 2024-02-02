@@ -16,47 +16,53 @@ public:
    CVImage(const std::string& path) : m_Window_width(0), m_Window_height(0), m_FilePath(path){      
       Load(path);
    }
-
+   
    std::string& GetFilePath() {
       return m_FilePath;
    }
    
    void Render() {
-      if (!m_ImageData.empty()) {
-         // Clear color and depth buffers
-         // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-         // glMatrixMode(GL_MODELVIEW);     // Operate on model-view matrix
-         // if (scale)
-         //    glScalef(1.0 / 2.0, 1.0 / 2.0, 1.0); 
-         // glEnable(GL_TEXTURE_2D);
-         // GLuint image_tex = MatToTexture(m_ImageData, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP);
+      if (!m_ImageDataProcessed.empty()) {
+         //Clear color and depth buffers
+         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+         glMatrixMode(GL_MODELVIEW);     // Operate on model-view matrix
+         if (scale)
+            glScalef(1.0 / 2.0, 1.0 / 2.0, 1.0); 
+         glEnable(GL_TEXTURE_2D);
+         GLuint image_tex = MatToTexture(m_ImageDataProcessed, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP);
 
-         // /* Draw a quad */
-         // glBegin(GL_QUADS);
-         // glTexCoord2d(0.0, 0.0); glVertex2d(-1.0, -1.0);
-         // glTexCoord2d(1.0, 0.0); glVertex2d(+1.0, -1.0);
-         // glTexCoord2d(1.0, 1.0); glVertex2d(+1.0, +1.0);
-         // glTexCoord2d(0.0, 1.0); glVertex2d(-1.0, +1.0);
-         // glEnd();
+         /* Draw a quad */
+         glBegin(GL_QUADS);
+         glTexCoord2d(0.0, 0.0); glVertex2d(-1.0, -1.0);
+         glTexCoord2d(1.0, 0.0); glVertex2d(+1.0, -1.0);
+         glTexCoord2d(1.0, 1.0); glVertex2d(+1.0, +1.0);
+         glTexCoord2d(0.0, 1.0); glVertex2d(-1.0, +1.0);
+         glEnd();
 
-         // glDeleteTextures(1, &image_tex);
-         // glDisable(GL_TEXTURE_2D);
-         cv::imshow("Picure", m_ImageData);
+         glDeleteTextures(1, &image_tex);
+         glDisable(GL_TEXTURE_2D);
+         //cv::imshow("Picure", m_ImageData);
 
       }
    }
 
-   // Gets the current (processed) image data
-   cv::Mat& GetSrcData() { return m_ImageData; }
+   // reset to image data to the original 
+   void Reset(){
+      m_ImageDataProcessed = m_ImageData.clone();
+   }
 
-   // Gets the refernce to the new (processed) data
-   cv::Mat& GetDestData() { return m_ImageData; }
+   // Gets the current (processed) image data
+   cv::Mat& GetProcessedData() { return m_ImageDataProcessed;}
+
+   // Gets the reference to the original image data
+   cv::Mat& GetOriginalData() { return m_ImageData;}
 
 private:
    // Load the images and stores it as cv::Mat
    bool Load(const std::string& path) {
       m_ImageData = cv::imread(path);
       if (!m_ImageData.empty()) {
+         m_ImageDataProcessed = m_ImageData.clone();
          m_Window_width = m_ImageData.cols;
          m_Window_height = m_ImageData.rows;
          LOG_INFO(printf("Loading image (size %d : %d) succesful!\n", m_Window_width, m_Window_height));
@@ -128,6 +134,7 @@ private:
    
 private:
    cv::Mat m_ImageData;
+   cv::Mat m_ImageDataProcessed;
    unsigned int m_Window_width;
    unsigned int m_Window_height;
    std::string m_FilePath;
