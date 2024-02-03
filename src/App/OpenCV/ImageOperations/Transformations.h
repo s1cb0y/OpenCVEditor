@@ -13,8 +13,8 @@ public:
       XY_AXIS
    };
 
-   FlipTransformation( FlipTransformation::FLIP_MODE FLIP_MODE) 
-   : m_FLIP_MODE(FLIP_MODE){}
+   FlipTransformation( FlipTransformation::FLIP_MODE flipMode) 
+   : m_FlipMode(flipMode){}
 
    ~FlipTransformation(){}
 
@@ -30,17 +30,17 @@ public:
    }
    virtual std::string ToString() const override { 
       std::stringstream ss;
-      ss << "FlipTransformation" << ", Mode: " << m_FLIP_MODE  ;
+      ss << "FlipTransformation" << ", Mode: " << m_FlipMode;
       return ss.str();
    }
 
    virtual bool Process(CVImage* image) override {
       if (image)
-            cv::flip(image->GetProcessedData(), image->GetProcessedData(), m_FLIP_MODE);
+            cv::flip(image->GetProcessedData(), image->GetProcessedData(), m_FlipMode);
       return true;  
    }
 
 private:
-   FlipTransformation::FLIP_MODE m_FLIP_MODE;
+   FlipTransformation::FLIP_MODE m_FlipMode;
 };
 

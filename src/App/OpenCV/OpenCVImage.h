@@ -67,7 +67,7 @@ private:
    // Load the images and stores it as cv::Mat
    bool Load(const std::string& path) {
       m_ImageData = cv::imread(path);
-      if (!m_ImageData.empty()) {         
+      if (!m_ImageData.empty()) {
          m_ImageDataProcessed = m_ImageData.clone();
          m_Window_width = m_ImageData.cols * 2; // show original and processed
          m_Window_height = m_ImageData.rows;
