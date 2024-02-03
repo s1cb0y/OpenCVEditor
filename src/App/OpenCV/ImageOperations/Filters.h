@@ -1,7 +1,7 @@
 #pragma once
 
 #include "App/OpenCV/OpenCVImage.h"
-#include "App/OpenCV/ImageOperation.h"
+#include "App/OpenCV/ImageOperations/ImageOperation.h"
 
 
 class GaussianBlurFilter : public ImageOperation{
@@ -13,7 +13,7 @@ public:
    ~GaussianBlurFilter(){}
 
    virtual OperationType GetOperationType() const override {
-      return OperationType::FilterGaussianBlur;
+      return OperationType::Filter;
    }
    
    virtual const char* GetName() const override {

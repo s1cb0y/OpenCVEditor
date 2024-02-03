@@ -23,15 +23,15 @@ public:
    
    void Render() {
       if (!m_ImageDataProcessed.empty()) {
-         //Clear color and depth buffers
+         cv::Mat imgCombined;
+         cv::hconcat( m_ImageData, m_ImageDataProcessed, imgCombined);
+         Clear color and depth buffers
          glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
          glMatrixMode(GL_MODELVIEW);     // Operate on model-view matrix
          if (scale)
             glScalef(1.0 / 2.0, 1.0 / 2.0, 1.0); 
          glEnable(GL_TEXTURE_2D);
          // combine original and processed image
-         cv::Mat imgCombined;
-         cv::hconcat( m_ImageData, m_ImageDataProcessed, imgCombined);
          GLuint image_tex = MatToTexture(imgCombined, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP);
 
          /* Draw a quad */
@@ -44,7 +44,7 @@ public:
 
          glDeleteTextures(1, &image_tex);
          glDisable(GL_TEXTURE_2D);
-         // cv::imshow("Picure", m_ImageData);
+         // cv::imshow("Picure", imgCombined);
          // cv::waitKey(1);
       }
    }

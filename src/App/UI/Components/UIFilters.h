@@ -2,7 +2,7 @@
 #include "AppEngine/UI/UISection.h"
 #include "AppEngine/Log.h"
 #include "App/AppData/AppData.h"
-#include "App/OpenCV/Filters.h"
+#include "App/OpenCV/ImageOperations/Filters.h"
 
 class UIFilters : public UIWidget {
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AppEngine/Core.h"
-#include "App/OpenCV/ImageOperation.h"
+#include "App/OpenCV/ImageOperations/ImageOperation.h"
 #include "App/OpenCV/OpenCVImage.h"
 
 class ImageOperationStack {
@@ -18,15 +18,18 @@ public:
       LOG_INFO("Push image operation {} to operation stack", operation->GetName());
       m_Operations.push_back(operation);
       ProcessImage();
-      return m_OpCount++;
+      return ++m_OpCount;
    }
 
    void PopOperation(u_int32_t opId) {
-      LOG_INFO("Pop image operation {} from operation stack", m_Operations[opId]->GetName());      
-      m_Operations.erase(m_Operations.begin() + opId);
-      m_Image->Reset();
-      ProcessImage();      
-      m_OpCount--;
+      if (m_OpCount > 0){
+         LOG_INFO("Pop image operation {} from operation stack", m_Operations[opId - 1]->GetName());      
+         m_Operations.erase(m_Operations.begin() + opId - 1);
+         if (m_Image)
+            m_Image->Reset();
+         ProcessImage();
+         m_OpCount--;
+      }
       
    }
 

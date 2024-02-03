@@ -8,7 +8,7 @@
 #include "App/UI/Components/UIMenuBar.h"
 #include "AppEngine/UI/UIFrame.h"
 #include "App/AppData/AppData.h"
-#include "App/OpenCV/ImageOperationStack.h"
+#include "App/OpenCV/ImageOperations/ImageOperationStack.h"
 
 class ImageLayer : public AppEngine::Layer {
 public:
@@ -23,10 +23,10 @@ public:
 
    ~ImageLayer() {
       if (m_UiMainFrame)
-         delete m_UiMainFrame;         
+         delete m_UiMainFrame;
    }
 
-   virtual void OnImGuiRender() override {      
+   virtual void OnImGuiRender() override {
       m_UiMainFrame->Render();
    }
 

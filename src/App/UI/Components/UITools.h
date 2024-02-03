@@ -3,7 +3,7 @@
 #include "AppEngine/Log.h"
 #include "App/AppData/AppData.h"
 #include "App/UI/Components/UIFilters.h"
-#include "App/OpenCV/Filters.h"
+#include "App/UI/Components/UITransforms.h"
 
 class UITools : public UIWidget {
 
@@ -12,8 +12,12 @@ public:
    UITools(AppData* appData) : UIWidget("Tools") {
       m_AppData = appData;
       m_UiFilters = new UIFilters(appData);
+      m_UiTransforms = new UITransforms(appData);
    }
-   ~UITools(){}
+   ~UITools(){
+      delete m_UiFilters;
+      delete m_UiTransforms;
+   }
 
 private:
 
@@ -28,11 +32,15 @@ private:
       ImGui::Text("========== Tools section =============");
      
       m_UiFilters->Render();
+      m_UiTransforms->Render();
+      
    }
 
    
 private:
    AppData* m_AppData;
    UIFilters* m_UiFilters;
+   UITransforms* m_UiTransforms;
+
 };
 

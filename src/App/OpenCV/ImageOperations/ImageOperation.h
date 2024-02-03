@@ -5,7 +5,8 @@
 enum OperationType
 {
    None = 0,
-   FilterGaussianBlur
+   Filter,
+   Transformation
 };
 
 enum class OperationCategory

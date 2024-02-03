@@ -2,7 +2,7 @@
 #include "AppEngine/Core.h"
 #include "AppEngine/Observables/Observables.h"
 #include "App/OpenCV/OpenCVImage.h"
-#include "App/OpenCV/ImageOperationStack.h"
+#include "App/OpenCV/ImageOperations/ImageOperationStack.h"
 
 class AppData
 {
