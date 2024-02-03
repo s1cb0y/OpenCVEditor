@@ -8,6 +8,7 @@
 #include <functional>
 #include <memory>
 #include <sstream>
+#include <stdint.h>
 
 #include "AppEngine/Log.h"
 #include "AppEngine/PlatformDetection.h"

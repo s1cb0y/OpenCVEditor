@@ -25,7 +25,7 @@ public:
       if (!m_ImageDataProcessed.empty()) {
          cv::Mat imgCombined;
          cv::hconcat( m_ImageData, m_ImageDataProcessed, imgCombined);
-         Clear color and depth buffers
+         // Clear color and depth buffers
          glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
          glMatrixMode(GL_MODELVIEW);     // Operate on model-view matrix
          if (scale)
