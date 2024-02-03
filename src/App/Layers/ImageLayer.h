@@ -3,6 +3,7 @@
 #include "AppEngine/Core.h"
 #include "AppEngine/Layer/Layer.h"
 #include "AppEngine/Events/ImageEvent.h"
+#include "AppEngine/Events/MouseEvent.h"
 #include "App/UI/Components/UITools.h"
 #include "App/UI/Components/UIMenuBar.h"
 #include "AppEngine/UI/UIFrame.h"
@@ -33,6 +34,9 @@ public:
       AppEngine::EventDispatcher dispatcher(event);
       dispatcher.Dispatch<AppEngine::OpenImageEvent>(BIND_FN(ImageLayer::OnOpenImage));
       dispatcher.Dispatch<AppEngine::CloseImageEvent>(BIND_FN(ImageLayer::OnCloseImage));
+      dispatcher.Dispatch<AppEngine::MouseButtonPressedEvent>(BIND_FN(ImageLayer::OnShowImageCoords));
+      dispatcher.Dispatch<AppEngine::MouseMovedEvent>(BIND_FN(ImageLayer::OnStoreImageCoords));
+      
    };
 
    virtual void OnUpdate() override {
@@ -53,8 +57,23 @@ private:
       return true;
    }
 
-private:
+   bool OnShowImageCoords(AppEngine::MouseButtonPressedEvent& e) {
+      LOG_INFO("Mouse clicked at image position (x : {}, y : {})", m_image_coord_x, m_image_coord_y );
+      //m_AppData->GetImage()->GetOriginalData().at<cv::Vec3b>(m_image_coord_x, m_image_coord_y) = {0,0,0};            
+      return true;
+   }
 
+   bool OnStoreImageCoords(AppEngine::MouseMovedEvent& e) {
+      
+      m_image_coord_x = e.GetX();
+      m_image_coord_y = e.GetY();
+      return true;
+   }
+
+
+private:
+   uint32_t m_image_coord_x;
+   uint32_t m_image_coord_y;
    UIFrame* m_UiMainFrame;
    AppData* m_AppData;
 };

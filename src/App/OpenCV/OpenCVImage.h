@@ -29,7 +29,10 @@ public:
          if (scale)
             glScalef(1.0 / 2.0, 1.0 / 2.0, 1.0); 
          glEnable(GL_TEXTURE_2D);
-         GLuint image_tex = MatToTexture(m_ImageDataProcessed, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP);
+         // combine original and processed image
+         cv::Mat imgCombined;
+         cv::hconcat( m_ImageData, m_ImageDataProcessed, imgCombined);
+         GLuint image_tex = MatToTexture(imgCombined, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP);
 
          /* Draw a quad */
          glBegin(GL_QUADS);
@@ -41,8 +44,8 @@ public:
 
          glDeleteTextures(1, &image_tex);
          glDisable(GL_TEXTURE_2D);
-         //cv::imshow("Picure", m_ImageData);
-
+         // cv::imshow("Picure", m_ImageData);
+         // cv::waitKey(1);
       }
    }
 
@@ -57,15 +60,18 @@ public:
    // Gets the reference to the original image data
    cv::Mat& GetOriginalData() { return m_ImageData;}
 
+   uint32_t GetWindowHeight() { return m_Window_height;}
+   uint32_t GetWindowWidth() { return m_Window_width;}
+
 private:
    // Load the images and stores it as cv::Mat
    bool Load(const std::string& path) {
       m_ImageData = cv::imread(path);
-      if (!m_ImageData.empty()) {
+      if (!m_ImageData.empty()) {         
          m_ImageDataProcessed = m_ImageData.clone();
-         m_Window_width = m_ImageData.cols;
+         m_Window_width = m_ImageData.cols * 2; // show original and processed
          m_Window_height = m_ImageData.rows;
-         LOG_INFO(printf("Loading image (size %d : %d) succesful!\n", m_Window_width, m_Window_height));
+         LOG_INFO(printf("Loading image (size %d : %d) succesful!\n", m_ImageData.cols , m_ImageData.rows));
          return true;
       }
       LOG_ERROR("Loading image failed!");
@@ -135,7 +141,7 @@ private:
 private:
    cv::Mat m_ImageData;
    cv::Mat m_ImageDataProcessed;
-   unsigned int m_Window_width;
-   unsigned int m_Window_height;
+   uint32_t m_Window_width;
+   uint32_t m_Window_height;
    std::string m_FilePath;
 };

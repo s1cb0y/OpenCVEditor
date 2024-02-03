@@ -50,7 +50,7 @@ namespace AppEngine{
       
    }
 
-   void Application::OnEvent(Event &event){
+   void Application::OnEvent(Event &event){      
       EventDispatcher dispatcher(event);
       dispatcher.Dispatch<WindowCloseEvent>(BIND_FN(Application::OnWindowClose));
       dispatcher.Dispatch<WindowResizeEvent>(BIND_FN(Application::OnWindowResize));
